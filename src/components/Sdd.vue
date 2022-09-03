@@ -1,5 +1,6 @@
 <script lang='ts' setup>
 import { computed } from 'vue'
+import { useWindowSize } from '@vueuse/core'
 const props = defineProps({
   mtx: {
     type: Number,
@@ -18,6 +19,7 @@ const props = defineProps({
     required: true,
   },
 })
+const { width, height } = useWindowSize()
 
 const j = computed(() => 90 - Math.atan2(props.ty - props.mty, props.tx - props.mtx) * 180 / Math.PI)
 
@@ -30,18 +32,20 @@ const s = computed(() => {
 </script>
 
 <template>
-  <div class="">
-    <svg width="500" height="500">
+  <div class="absolute left-0 top-0">
+    <svg :width="width" :height="height">
       <path :d="p" stroke="red" stroke-width="2" />
       <!-- <path d="M 200 203 L 195 200 L 205 200 L 200 203" stroke="blue" fill="red" /> -->
       <polygon
         :points="s"
-        :style="{ transform: `rotate(${j * -1}deg)` }"
-        style="fill:red;stroke:red;stroke-width:2; transform-origin:40% 40%;"
+        :style="{ transform: `rotate(${j * -1}deg)`, transformOrigin: `${props.tx}px ${props.ty}px` }"
+        style="fill:red;stroke:red;stroke-width:2;"
       />
 
     </svg>
-    {{ s }}
+    <p>s{{ s }}</p>
+    <p>j{{ j }}</p>
+    <p>p{{ p }}</p>
   </div>
 </template>
 

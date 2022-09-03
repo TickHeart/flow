@@ -5,7 +5,7 @@ import Sdd from '../components/Sdd.vue'
 
 <template>
   <div class="">
-    <Sdd :mtx="500" :mty="0" :tx="200" :ty="200" />
+    <Sdd :mtx="500" :mty="400" :tx="700" :ty="800" />
   </div>
 </template>
 
